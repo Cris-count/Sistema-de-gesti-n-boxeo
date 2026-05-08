@@ -1,3 +1,138 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family:
+    'DM Sans',
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+html.light-theme {
+  --color-1: #df0761;
+  --color-2: #df1907;
+  --color-3: #df8507;
+
+  --bg-page: #f8f6f3;
+  --bg-elevated: #ffffff;
+  --bg-muted: #f0ece9;
+  --bg-subtle: #fbf7f4;
+  --bg-glass: rgba(255, 255, 255, 0.82);
+
+  --text-primary: #1d1716;
+  --text-secondary: #5f5350;
+  --text-muted: #857a75;
+
+  --border-default: rgba(29, 23, 22, 0.1);
+  --border-strong: rgba(223, 25, 7, 0.2);
+
+  --shadow-sm: 0 8px 18px rgba(35, 24, 20, 0.08);
+  --shadow-md: 0 18px 42px rgba(35, 24, 20, 0.12);
+  --shadow-lg: 0 30px 70px rgba(35, 24, 20, 0.16);
+
+  --accent-primary: var(--color-1);
+  --accent-secondary: var(--color-2);
+  --accent-tertiary: var(--color-3);
+
+  --gradient-hero: linear-gradient(
+    135deg,
+    rgba(223, 7, 97, 0.94) 0%,
+    rgba(223, 25, 7, 0.88) 42%,
+    rgba(223, 133, 7, 0.82) 100%
+  );
+
+  --gradient-button: linear-gradient(135deg, var(--color-1), var(--color-2));
+  --gradient-glow:
+    radial-gradient(circle at 18% 12%, rgba(223, 133, 7, 0.22), transparent 38%),
+    radial-gradient(circle at 88% 22%, rgba(223, 7, 97, 0.16), transparent 35%);
+  --ring-pattern:
+    linear-gradient(115deg, transparent 0 47%, rgba(223, 25, 7, 0.08) 47% 49%, transparent 49% 100%),
+    linear-gradient(65deg, transparent 0 48%, rgba(223, 133, 7, 0.08) 48% 50%, transparent 50% 100%);
+
+  --focus-ring: 0 0 0 3px rgba(223, 7, 97, 0.35);
+
+  --danger-bg: rgba(223, 25, 7, 0.08);
+  --danger-text: #b01510;
+  --success-bg: rgba(34, 160, 107, 0.12);
+  --success-text: #136646;
+  --warning-bg: rgba(223, 133, 7, 0.14);
+  --warning-text: #8a5200;
+}
+
+html.dark-theme {
+  --color-1: #ff6f61;
+  --color-2: #daa520;
+  --color-3: #ff4500;
+
+  --bg-page: #1c1c1c;
+  --bg-elevated: #262321;
+  --bg-muted: #302b28;
+  --bg-subtle: #211f1e;
+  --bg-glass: rgba(38, 35, 33, 0.82);
+
+  --text-primary: #f5e8d8;
+  --text-secondary: #d7c9b8;
+  --text-muted: #a99788;
+
+  --border-default: rgba(255, 111, 97, 0.16);
+  --border-strong: rgba(218, 165, 32, 0.28);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 16px 36px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 28px 60px rgba(0, 0, 0, 0.55);
+
+  --accent-primary: #ff6f61;
+  --accent-secondary: #daa520;
+  --accent-tertiary: #ff4500;
+
+  --gradient-hero: linear-gradient(
+    135deg,
+    rgba(255, 69, 0, 0.55) 0%,
+    rgba(37, 37, 37, 0.94) 48%,
+    rgba(255, 111, 97, 0.35) 100%
+  );
+
+  --gradient-button: linear-gradient(135deg, #ff6f61, #ff4500);
+  --gradient-glow:
+    radial-gradient(circle at 82% 0%, rgba(255, 69, 0, 0.28), transparent 42%),
+    radial-gradient(circle at 10% 16%, rgba(218, 165, 32, 0.14), transparent 34%);
+  --ring-pattern:
+    linear-gradient(115deg, transparent 0 47%, rgba(255, 69, 0, 0.1) 47% 49%, transparent 49% 100%),
+    linear-gradient(65deg, transparent 0 48%, rgba(218, 165, 32, 0.1) 48% 50%, transparent 50% 100%);
+
+  --focus-ring: 0 0 0 3px rgba(255, 111, 97, 0.45);
+
+  --danger-bg: rgba(255, 69, 0, 0.12);
+  --danger-text: #ffb4a9;
+  --success-bg: rgba(218, 165, 32, 0.12);
+  --success-text: #f0d878;
+  --warning-bg: rgba(218, 165, 32, 0.14);
+  --warning-text: #daa520;
+}
+
+html.light-theme body,
+html.dark-theme body {
+  background:
+    var(--ring-pattern),
+    var(--gradient-glow),
+    var(--bg-page);
+  background-attachment: fixed;
+}

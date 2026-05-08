@@ -1,0 +1,17 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - node scripts/write-env.js
+        - npm run build
+  artifacts:
+    baseDirectory: dist/gestion-gimnasio-boxeo/browser
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*

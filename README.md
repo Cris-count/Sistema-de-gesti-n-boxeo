@@ -1,59 +1,86 @@
-# GestionGimnasioBoxeo
+# Gestion de Gimnasio Boxeo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.3.
+Aplicacion full-stack para administrar un gimnasio de boxeo con Angular, API REST en microservicios, JWT, roles y dos bases de datos.
 
-## Development server
+## Arquitectura
 
-To start a local development server, run:
+- `frontend`: Angular 21 con login, registro, manejo de roles y vistas CRUD.
+- `backend/auth-service`: autenticacion JWT, registro/login y usuarios en PostgreSQL.
+- `backend/members-service`: CRUD de boxeadores, protegido con JWT, persistencia en MySQL.
+- `backend/classes-service`: CRUD de clases, protegido con JWT, persistencia en PostgreSQL.
+- `docker-compose.yml`: levanta frontend, microservicios, MySQL y PostgreSQL.
 
-```bash
-ng serve
+## Roles
+
+- `ADMIN`: puede crear, leer, editar y eliminar boxeadores y clases.
+- `USER`: puede iniciar sesion y consultar boxeadores y clases.
+
+Credenciales iniciales:
+
+```txt
+Email: admin@ringbox.local
+Password: Admin123
+Rol: ADMIN
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Ejecutar localmente con Docker
 
 ```bash
-ng generate component component-name
+docker compose up -d --build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+URLs locales:
+
+- Frontend: http://localhost:4200
+- Auth service: http://localhost:3001
+- Members service: http://localhost:3002
+- Classes service: http://localhost:3003
+
+## Ejecutar frontend en desarrollo
 
 ```bash
-ng generate --help
+npm install
+npm start
 ```
 
-## Building
+## Endpoints principales
 
-To build the project run:
+Auth:
+
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /auth/me`
+
+Boxeadores:
+
+- `GET /members`
+- `POST /members`
+- `PUT /members/:id`
+- `DELETE /members/:id`
+
+Clases:
+
+- `GET /classes`
+- `POST /classes`
+- `PUT /classes/:id`
+- `DELETE /classes/:id`
+
+Los endpoints de boxeadores y clases requieren header:
+
+```txt
+Authorization: Bearer <token>
+```
+
+## Preparar despliegue
+
+Al construir el frontend para nube, cambia los argumentos del build para que Angular consuma las URLs publicas de los backends:
 
 ```bash
-ng build
+docker build ^
+  --build-arg AUTH_API_URL=https://tu-auth.onrender.com ^
+  --build-arg MEMBERS_API_URL=https://tu-members.onrender.com ^
+  --build-arg CLASSES_API_URL=https://tu-classes.onrender.com ^
+  -t gestion-gimnasio-boxeo-frontend .
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Para despliegues sin Docker, actualiza `src/environments/environment.prod.ts` con esas mismas URLs antes de `npm run build`.
