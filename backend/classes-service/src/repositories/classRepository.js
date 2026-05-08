@@ -1,11 +1,17 @@
 const { Pool } = require('pg');
 
+function pgSsl() {
+  const v = String(process.env.DB_SSL || '').toLowerCase();
+  return v === 'true' || v === '1' ? { rejectUnauthorized: false } : undefined;
+}
+
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
   port: Number(process.env.DB_PORT || 5432),
   database: process.env.DB_NAME || 'boxing_classes',
   user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres'
+  password: process.env.DB_PASSWORD || 'postgres',
+  ssl: pgSsl()
 });
 
 async function query(sql, params) {

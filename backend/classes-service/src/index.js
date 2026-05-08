@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
+const { corsOptions } = require('./corsConfig');
 const classController = require('./controllers/classController');
 const { initializeDatabase } = require('./repositories/classRepository');
 const { authenticateToken, requireAdmin } = require('./middleware/authMiddleware');
@@ -9,7 +10,7 @@ const { authenticateToken, requireAdmin } = require('./middleware/authMiddleware
 const app = express();
 const port = process.env.PORT || 3003;
 
-app.use(cors());
+app.use(cors(corsOptions()));
 app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ service: 'classes-service', status: 'ok' }));
