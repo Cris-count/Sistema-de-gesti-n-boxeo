@@ -1,0 +1,21 @@
+server:
+  port: ${PORT:3002}
+
+spring:
+  application:
+    name: members-service
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:boxing_members}?allowPublicKeyRetrieval=true&useSSL=false${DB_SSL_SUFFIX:}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:mysql}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+boxing:
+  jwt:
+    secret: ${JWT_SECRET:boxing-super-secret}
